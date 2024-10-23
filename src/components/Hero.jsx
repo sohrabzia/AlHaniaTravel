@@ -1,5 +1,6 @@
-// src/components/Hero.jsx
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Plane, Calendar, MapPin, ArrowRight, ArrowLeftRight } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import * as THREE from 'three';
@@ -31,181 +32,269 @@ const Hero = () => {
         const whatsappUrl = `https://wa.me/+971551341387?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
     };
-    
-    useEffect(() => {
-        const container = document.getElementById('canvas-container');
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        container.appendChild(renderer.domElement);
 
-        // Set background color
-        renderer.setClearColor(0x0092f49); // Set the canvas background color
+    useEffect(() => {
+        const container = document.getElementById('globe-container');
+        const renderer = new THREE.WebGLRenderer({ 
+            alpha: true,
+            antialias: true 
+        });
+        
+        // Set size to match container
+        renderer.setSize(window.innerWidth, 500); // Fixed height for the globe section
+        container.appendChild(renderer.domElement);
+        renderer.setClearColor(0x000000, 0); // Transparent background
 
         const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / 500, 0.1, 1000);
 
-        // Configuration object with camera settings
-        const config = {
-            globe: {
-                radius: 250,
-                rotationSpeed: 0.005,
-                textureUrl: 'https://i.ibb.co/gZRRfzN/globe-map.png', // Updated image URL
-                width: window.innerWidth,
-                height: window.innerHeight,
-            },
-            camera: {
-                fov: 75, // Field of view
-                aspect: window.innerWidth / window.innerHeight, // Aspect ratio
-                near: 0.1, // Near clipping plane
-                far: 1000, // Far clipping plane
-                position: {
-                    x: 0,
-                    y: 0,
-                    z: 600, // Camera distance from the globe
-                },
-            },
-        };
-
-        // Create the camera using settings from config
-        const camera = new THREE.PerspectiveCamera(
-            config.camera.fov,
-            config.camera.aspect,
-            config.camera.near,
-            config.camera.far
-        );
-
-        // Set the initial camera position from the config
-        camera.position.set(config.camera.position.x + 200, config.camera.position.y, config.camera.position.z); // {{ edit_1 }}
-
-        // Create sphere geometry and material
-        const geometry = new THREE.SphereGeometry(config.globe.radius, 32, 16);
+        // Move camera position for better view
+        camera.position.z = 250;
+        // Create globe
+        const geometry = new THREE.SphereGeometry(150, 32, 32);
         const material = new THREE.MeshBasicMaterial({
             transparent: true,
-            opacity: 0.99,
+            opacity: 0.8,
         });
         const globe = new THREE.Mesh(geometry, material);
-        globe.position.set(200, 0, 0); // {{ edit_2 }} - Move the globe to the right
+        
+        // Position globe slightly to the right and rotate it
+        globe.position.set(0, 0, 0);
+        globe.rotation.x = 0;
         scene.add(globe);
 
         // Load texture
         const textureLoader = new THREE.TextureLoader();
-        let texture = null;
-
         textureLoader.load(
-            config.globe.textureUrl,
-            tex => {
-                texture = tex;
-
-                // Apply anisotropy for sharper textures when viewed from an angle
-                const maxAnisotropy = renderer.capabilities.getMaxAnisotropy();
-                texture.anisotropy = maxAnisotropy;
-
-                // Disable mipmaps for sharper look at the cost of performance
+            'https://i.ibb.co/gZRRfzN/globe-map.png',
+            (texture) => {
+                texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
                 texture.generateMipmaps = false;
                 texture.minFilter = THREE.LinearFilter;
                 texture.magFilter = THREE.LinearFilter;
-
                 globe.material.map = texture;
                 globe.material.needsUpdate = true;
-            },
-            undefined,
-            error => {
-                console.error('An error has occurred:', error);
             }
         );
 
-        // Resize event listener
-        function onWindowResize() {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-
-            // Update renderer size
-            renderer.setSize(width, height);
-
-            // Update camera settings on resize
-            camera.aspect = width / height;
+        // Handle window resize
+        const handleResize = () => {
+            renderer.setSize(window.innerWidth, 500);
+            camera.aspect = window.innerWidth / 500;
             camera.updateProjectionMatrix();
-
-            // Update config dimensions
-            config.globe.width = width;
-            config.globe.height = height;
-        }
-        window.addEventListener('resize', onWindowResize);
+        };
+        window.addEventListener('resize', handleResize);
 
         // Animation loop
         function animate() {
             requestAnimationFrame(animate);
-            if (texture) {
-                globe.rotation.y += config.globe.rotationSpeed; // Rotate the globe using config
-            }
+            globe.rotation.y += 0.005;
             renderer.render(scene, camera);
         }
-
         animate();
 
-        // Cleanup on component unmount
+        // Cleanup
         return () => {
             container.removeChild(renderer.domElement);
-            window.removeEventListener('resize', onWindowResize);
+            window.removeEventListener('resize', handleResize);
             renderer.dispose();
         };
     }, []);
 
-    return (
-        <section id="home" className="bg-sky-950 text-white py-10 relative">
-            <div id="canvas-container" className="absolute top-[-50px] md:top-[-100px] inset-0 z-0 h- overflow-hidden" /> 
-            <br />
-            <br />
-   
-            <div className="container mx-auto px-6 relative z-1">
-                <h2 className="text-4xl md:text-5xl mb-3 text-center font-bold mt-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">Your Gateway to the World</h2>
+    const formContainerVariants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: { duration: 0.6, ease: "easeOut" }
+        }
+    };
 
-                <p className="text-xl mb-8 text-center">Book with <span className='text-orange-500 font-bold'>Al Hania Travel </span>for fast, hassle-free changes and cancellations—no waiting on emails, just personal service!</p>
-                <div className="max-w-4xl mx-auto bg-sky-950/50 rounded-lg p-6 shadow-lg backdrop-blur-md bg-opacity-10 border-2 border-sky-900">
-                    <p className="text-white mb-4 text-center">Your inquiry will be sent to WhatsApp, and our agent will respond shortly 
-                        <a href="https://wa.me/+971551341387" className="text-white font-bold"> or you may contact us directly on +971551341387</a></p>
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div>
-                            <label htmlFor="fullName" className="block text-white mb-2">Full Name</label>
-                            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" value={formData.fullName} onChange={handleChange} className="w-full px-4 py-2 rounded-lg border text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" required />
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label htmlFor="from" className="block text-white mb-2">From</label>
-                                <input type="text" id="from" name="from" placeholder="Departure City" value={formData.from} onChange={handleChange} className="w-full px-4 py-2 rounded-lg border text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" required />
+    const titleVariants = {
+        hidden: { opacity: 0, y: -20 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: { duration: 0.5, ease: "easeOut" }
+        }
+    };
+
+    return (
+        <section id="home" className="relative bg-gradient-to-b from-sky-950 to-sky-900 text-white">
+            {/* Globe Container */}
+            <div id="globe-container" className="absolute top-0 left-0 w-full h-[500px] overflow-hidden opacity-70" />
+            
+            {/* Content Container */}
+            <div className="relative pt-20 pb-16 px-4">
+                <div className="container mx-auto">
+                    <motion.div 
+                        className="text-center mb-12 space-y-4 relative z-10"
+                        initial="hidden"
+                        animate="visible"
+                        variants={titleVariants}
+                    >
+                        <h1 className="text-5xl md:text-6xl font-bold">
+                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-600  to-orange-300">
+                                Your Gateway to the World
+                            </span>
+                        </h1>
+                        <motion.p 
+                            className="text-xl md:text-2xl text-gray-300"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.2 }}
+                        >
+                            Book with <span className="text-orange-500 font-bold">Al Hania Travel</span> for 
+                            <span className="text-teal-500"> hassle-free</span> changes and cancellations
+                        </motion.p>
+                    </motion.div>
+
+                    <motion.div
+                        variants={formContainerVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="max-w-4xl mx-auto relative z-10"
+                    >
+                        <div className="backdrop-blur-lg bg-white/10 rounded-xl shadow-2xl p-8 border border-white/20">
+                            <div className="flex items-center justify-center gap-2 mb-6">
+                                <Plane className="w-6 h-6 text-orange-500" />
+                                <p className="text-lg">Quick Booking Form</p>
                             </div>
-                            <div>
-                                <label htmlFor="to" className="block text-white mb-2">To</label>
-                                <input type="text" id="to" name="to" placeholder="Destination City" value={formData.to} onChange={handleChange} className="w-full px-4 py-2 rounded-lg border text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" required />
-                            </div>
-                        </div>
-                        <div className="flex space-x-4 text-white">
-                            <label htmlFor="oneWay" className="flex items-center space-x-2">
-                                <input id="oneWay" type="radio" name="tripType" value="oneWay" checked={formData.tripType === 'oneWay'} onChange={handleChange} className="form-radio text-white" />
-                                <span>One Way</span>
-                            </label>
-                            <label htmlFor="roundTrip" className="flex items-center space-x-2">
-                                <input id="roundTrip" type="radio" name="tripType" value="roundTrip" checked={formData.tripType === 'roundTrip'} onChange={handleChange} className="form-radio text-white" />
-                                <span>Round Trip</span>
-                            </label>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label htmlFor="departDate" className="block text-white mb-2">Departure Date</label>
-                                <input type="date" id="departDate" name="departDate" value={formData.departDate} onChange={handleChange} className="w-full px-4 py-2 rounded-lg border text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" required />
-                            </div>
-                            {formData.tripType === 'roundTrip' && (
-                                <div>
-                                    <label htmlFor="returnDate" className="block text-white mb-2">Return Date</label>
-                                    <input type="date" id="returnDate" name="returnDate" value={formData.returnDate} onChange={handleChange} className="w-full px-4 py-2 rounded-lg border text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" required />
+
+                            <form onSubmit={handleSubmit} className="space-y-6">
+                                <motion.div 
+                                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.3 }}
+                                >
+                                    <div className="relative">
+                                        <input
+                                            type="text"
+                                            id="fullName"
+                                            name="fullName"
+                                            value={formData.fullName}
+                                            onChange={handleChange}
+                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300"
+                                            placeholder="Full Name"
+                                            required
+                                        />
+                                    </div>
+
+                                    <div className="flex gap-4">
+                                        <motion.label 
+                                            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg cursor-pointer transition-all duration-300 ${formData.tripType === 'oneWay' ? 'bg-orange-600' : 'bg-white/5'}`}
+                                            whileHover={{ scale: 1.02 }}
+                                            whileTap={{ scale: 0.98 }}
+                                        >
+                                            <input
+                                                type="radio"
+                                                name="tripType"
+                                                value="oneWay"
+                                                checked={formData.tripType === 'oneWay'}
+                                                onChange={handleChange}
+                                                className="hidden"
+                                            />
+                                            <ArrowRight className="w-4 h-4" />
+                                            One Way
+                                        </motion.label>
+
+                                        <motion.label 
+                                            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg cursor-pointer transition-all duration-300 ${formData.tripType === 'roundTrip' ? 'bg-orange-600' : 'bg-white/5'}`}
+                                            whileHover={{ scale: 1.02 }}
+                                            whileTap={{ scale: 0.98 }}
+                                        >
+                                            <input
+                                                type="radio"
+                                                name="tripType"
+                                                value="roundTrip"
+                                                checked={formData.tripType === 'roundTrip'}
+                                                onChange={handleChange}
+                                                className="hidden"
+                                            />
+                                            <ArrowLeftRight className="w-4 h-4" />
+                                            Round Trip
+                                        </motion.label>
+                                    </div>
+                                </motion.div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="relative">
+                                        <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                        <input
+                                            type="text"
+                                            name="from"
+                                            value={formData.from}
+                                            onChange={handleChange}
+                                            className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300"
+                                            placeholder="From"
+                                            required
+                                        />
+                                    </div>
+
+                                    <div className="relative">
+                                        <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                        <input
+                                            type="text"
+                                            name="to"
+                                            value={formData.to}
+                                            onChange={handleChange}
+                                            className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300"
+                                            placeholder="To"
+                                            required
+                                        />
+                                    </div>
                                 </div>
-                            )}
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="relative">
+                                        <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                        <input
+                                            type="date"
+                                            name="departDate"
+                                            value={formData.departDate}
+                                            onChange={handleChange}
+                                            className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300"
+                                            required
+                                        />
+                                    </div>
+
+                                    {formData.tripType === 'roundTrip' && (
+                                        <div className="relative">
+                                            <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                            <input
+                                                type="date"
+                                                name="returnDate"
+                                                value={formData.returnDate}
+                                                onChange={handleChange}
+                                                className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300"
+                                                required
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <motion.button
+                                    type="submit"
+                                    className="w-full bg-gradient-to-r from-orange-600 to-orange-500 text-white font-bold py-4 px-6 rounded-lg shadow-lg hover:from-teal-500 hover:to-teal-400 transition-all duration-300 flex items-center justify-center gap-2"
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    <FontAwesomeIcon icon={faWhatsapp} className="text-xl" />
+                                    Send Inquiry via WhatsApp
+                                </motion.button>
+                            </form>
+
+                            <motion.p 
+                                className="text-center mt-6 text-sm text-gray-300"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.5 }}
+                            >
+                                Direct Contact: <a href="https://wa.me/+971551341387" className="text-teal-500 hover:text-teal-400">+971 55 134 1387</a>
+                            </motion.p>
                         </div>
-                        <div className="flex justify-center">
-                            <button type="submit" className="w-full md:w-1/2 bg-orange-600 text-white font-bold mt-4 py-3 px-4 rounded-lg hover:bg-teal-500 transition duration-300">
-                            <FontAwesomeIcon icon={faWhatsapp} className="mr-2" /> Send Inquiry
-                            </button>
-                        </div>
-                    </form>
+                    </motion.div>
                 </div>
             </div>
         </section>

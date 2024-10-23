@@ -1,5 +1,8 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+
+  
+
+    import React from 'react';
+import { Plane, MapPin, ArrowRight } from 'lucide-react';
 
 const Destinations = () => {
     const destinations = [
@@ -25,12 +28,13 @@ const Destinations = () => {
         }
     ];
 
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.2
+                staggerChildren: 0.3
             }
         }
     };
@@ -43,90 +47,69 @@ const Destinations = () => {
             transition: {
                 type: "spring",
                 stiffness: 100,
-                damping: 12
+                damping: 15
             }
         }
     };
 
     return (
-        <section id="destinations" className="py-20 bg-gray-50">
-            <motion.div 
+        <section className="py-24 bg-gradient-to-b from-sky-950 via-sky-950/95 to-sky-950/90">
+            <div 
                 className="container mx-auto px-4 md:px-6"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
                 variants={containerVariants}
             >
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-12"
-                >
-                    <motion.span 
-                        className="text-blue-600 text-sm font-semibold tracking-wider uppercase"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ delay: 0.2 }}
-                    >
-                        Explore The World
-                    </motion.span>
-                    <motion.h2 
-                        className="text-4xl md:text-5xl font-bold text-gray-900 mt-2"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ delay: 0.3 }}
-                    >
-                        Popular Destinations
-                    </motion.h2>
-                </motion.div>
+                <div className="text-center mb-16 space-y-4">
+                    <div className="flex items-center justify-center gap-2">
+                        <Plane className="w-6 h-6 text-orange-600" />
+                        <span className="text-teal-500 text-sm font-medium tracking-widest uppercase">
+                            Discover New Horizons
+                        </span>
+                    </div>
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-poppins">
+                        Trending Destinations
+                    </h2>
+                    <p className="text-gray-400 max-w-2xl mx-auto">
+                        Explore our handpicked destinations that combine luxury, adventure, and unforgettable experiences
+                    </p>
+                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {destinations.map((destination, index) => (
-                        <motion.div
+                        <div
                             key={destination.name}
-                            variants={cardVariants}
-                            whileHover={{ y: -10 }}
-                            className="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer"
+                            className="group relative bg-white/5 backdrop-blur-lg rounded-2xl overflow-hidden border border-white/10 hover:border-orange-600/50 transition-all duration-500"
                         >
-                            <motion.div 
-                                className="h-64 w-full overflow-hidden"
-                                whileHover={{ scale: 1.1 }}
-                                transition={{ duration: 0.3 }}
-                            >
+                            <div className="h-72 w-full overflow-hidden">
                                 <img 
                                     src={destination.image} 
                                     alt={destination.name}
-                                    className="w-full h-full object-cover transition-transform duration-300"
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
-                            </motion.div>
+                            </div>
                             
-                            <motion.div 
-                                className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6 flex flex-col justify-end"
-                                initial={{ opacity: 0.8 }}
-                                whileHover={{ opacity: 1 }}
-                            >
-                                <motion.h3 
-                                    className="text-white text-2xl font-bold mb-2"
-                                    initial={{ y: 20, opacity: 0 }}
-                                    whileInView={{ y: 0, opacity: 1 }}
-                                    transition={{ delay: 0.1 * index }}
-                                >
-                                    {destination.name}
-                                </motion.h3>
+                            <div className="p-6 space-y-4">
+                                <div className="flex justify-between items-start">
+                                    <h3 className="text-2xl font-bold text-white font-poppins">
+                                        {destination.name}
+                                    </h3>
+                                    <MapPin className="w-5 h-5 text-teal-500" />
+                                </div>
                                 
-                                <motion.p
-                                    className="text-gray-200 text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300"
-                                >
+                                <p className="text-gray-300 text-sm">
                                     {destination.description}
-                                </motion.p>
+                                </p>
                                 
-                             
-                            </motion.div>
-                        </motion.div>
+                                
+                                
+                            
+                            </div>
+                        </div>
                     ))}
                 </div>
-            </motion.div>
+            </div>
         </section>
     );
 };

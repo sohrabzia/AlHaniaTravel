@@ -75,7 +75,7 @@ const Contact = () => {
                     className="text-center mb-16"
                     variants={itemVariants}
                 >
-                    <span className="text-blue-400 text-sm font-semibold tracking-wider uppercase">Contact Us</span>
+                    <span className="text-teal-400 text-sm font-semibold tracking-wider uppercase">Contact Us</span>
                     <h2 className="text-4xl md:text-5xl font-bold mt-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">Get in Touch</h2>
                 </motion.div>
 
