@@ -151,16 +151,18 @@ const Hero = () => {
     }, []);
 
     return (
-        <section id="home" className="bg-sky-950 text-white py-20 relative">
+        <section id="home" className="bg-sky-950 text-white py-10 relative">
             <div id="canvas-container" className="absolute top-[-50px] md:top-[-100px] inset-0 z-0 h- overflow-hidden" /> 
             <br />
             <br />
    
             <div className="container mx-auto px-6 relative z-1">
-                <h1 className="text-5xl font-bold mb-4 text-center">Your Gateway to the World</h1>
-                <p className="text-xl mb-8 text-center">Book your flight with Al Hania Travel</p>
+                <h2 className="text-4xl md:text-5xl mb-3 text-center font-bold mt-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">Your Gateway to the World</h2>
+
+                <p className="text-xl mb-8 text-center">Book with <span className='text-orange-500 font-bold'>Al Hania Travel </span>for fast, hassle-free changes and cancellations—no waiting on emails, just personal service!</p>
                 <div className="max-w-4xl mx-auto bg-sky-950/50 rounded-lg p-6 shadow-lg backdrop-blur-md bg-opacity-10 border-2 border-sky-900">
-                    <p className="text-white mb-4 text-center">Your inquiry will be sent to WhatsApp, and our agent will respond shortly.</p>
+                    <p className="text-white mb-4 text-center">Your inquiry will be sent to WhatsApp, and our agent will respond shortly
+                        <a href="https://wa.me/+971551341387" className="text-white font-bold">or you may contact us directly on +971551341387</a></p>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
                             <label htmlFor="fullName" className="block text-white mb-2">Full Name</label>
@@ -177,13 +179,13 @@ const Hero = () => {
                             </div>
                         </div>
                         <div className="flex space-x-4 text-white">
-                            <label className="flex items-center">
-                                <input type="radio" name="tripType" value="oneWay" checked={formData.tripType === 'oneWay'} onChange={handleChange} className="mr-2" />
-                                One Way
+                            <label htmlFor="oneWay" className="flex items-center space-x-2">
+                                <input id="oneWay" type="radio" name="tripType" value="oneWay" checked={formData.tripType === 'oneWay'} onChange={handleChange} className="form-radio text-white" />
+                                <span>One Way</span>
                             </label>
-                            <label className="flex items-center">
-                                <input type="radio" name="tripType" value="roundTrip" checked={formData.tripType === 'roundTrip'} onChange={handleChange} className="mr-2" />
-                                Round Trip
+                            <label htmlFor="roundTrip" className="flex items-center space-x-2">
+                                <input id="roundTrip" type="radio" name="tripType" value="roundTrip" checked={formData.tripType === 'roundTrip'} onChange={handleChange} className="form-radio text-white" />
+                                <span>Round Trip</span>
                             </label>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -199,7 +201,7 @@ const Hero = () => {
                             )}
                         </div>
                         <div className="flex justify-center">
-                            <button type="submit" className="w-1/2 bg-orange-600 text-white font-bold mt-4 py-3 px-4 rounded-lg hover:bg-teal-500 transition duration-300">
+                            <button type="submit" className="w-full md:w-1/2 bg-orange-600 text-white font-bold mt-4 py-3 px-4 rounded-lg hover:bg-teal-500 transition duration-300">
                             <FontAwesomeIcon icon={faWhatsapp} className="mr-2" /> Send Inquiry
                             </button>
                         </div>
