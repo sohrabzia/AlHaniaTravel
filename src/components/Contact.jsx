@@ -65,7 +65,7 @@ const Contact = () => {
             />
 
             <motion.div 
-                className="container mx-auto px-6 relative z-10"
+                className="container mx-auto px-6 relative z-1"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}

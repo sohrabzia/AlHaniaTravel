@@ -161,8 +161,8 @@ const Hero = () => {
 
                 <p className="text-xl mb-8 text-center">Book with <span className='text-orange-500 font-bold'>Al Hania Travel </span>for fast, hassle-free changes and cancellations—no waiting on emails, just personal service!</p>
                 <div className="max-w-4xl mx-auto bg-sky-950/50 rounded-lg p-6 shadow-lg backdrop-blur-md bg-opacity-10 border-2 border-sky-900">
-                    <p className="text-white mb-4 text-center">Your inquiry will be sent to WhatsApp, and our agent will respond shortly
-                        <a href="https://wa.me/+971551341387" className="text-white font-bold">or you may contact us directly on +971551341387</a></p>
+                    <p className="text-white mb-4 text-center">Your inquiry will be sent to WhatsApp, and our agent will respond shortly 
+                        <a href="https://wa.me/+971551341387" className="text-white font-bold"> or you may contact us directly on +971551341387</a></p>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
                             <label htmlFor="fullName" className="block text-white mb-2">Full Name</label>
