@@ -27,7 +27,7 @@ const Header = () => {
     <motion.header 
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="bg-sky-950/90 sticky top-0 backdrop-blur-md z-50 border-b border-teal-500/20"
+      className="bg-sky-950 sticky top-0 backdrop-blur-md z-50 border-b border-teal-500/20"
     >
       <div className="container mx-auto px-4">
         <nav className="flex justify-between items-center h-20">

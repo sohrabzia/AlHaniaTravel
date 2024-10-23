@@ -68,9 +68,11 @@ const Destinations = () => {
                             Discover New Horizons
                         </span>
                     </div>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-poppins">
-                        Trending Destinations
-                    </h2>
+
+                    <h2 className="text-4xl md:text-5xl font-bold mt-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">Trending Destinations</h2>
+
+
+                
                     <p className="text-gray-400 max-w-2xl mx-auto">
                         Explore our handpicked destinations that combine luxury, adventure, and unforgettable experiences
                     </p>

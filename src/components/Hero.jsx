@@ -88,7 +88,7 @@ const Hero = () => {
         // Animation loop
         function animate() {
             requestAnimationFrame(animate);
-            globe.rotation.y += 0.005;
+            globe.rotation.y += 0.0005;
             renderer.render(scene, camera);
         }
         animate();
@@ -132,12 +132,13 @@ const Hero = () => {
                         initial="hidden"
                         animate="visible"
                         variants={titleVariants}
-                    >
-                        <h1 className="text-5xl md:text-6xl font-bold">
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-600  to-orange-300">
-                                Your Gateway to the World
-                            </span>
-                        </h1>
+                    >  <motion.div
+                    className="inline-block mb-4 px-4 py-1 rounded-full bg-orange-100 text-orange-600 text-sm font-medium"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    Welcome to Al Hania Travel
+                  </motion.div>
+                    
                         <motion.p 
                             className="text-xl md:text-2xl text-gray-300"
                             initial={{ opacity: 0 }}
@@ -158,7 +159,7 @@ const Hero = () => {
                         <div className="backdrop-blur-lg bg-white/10 rounded-xl shadow-2xl p-8 border border-white/20">
                             <div className="flex items-center justify-center gap-2 mb-6">
                                 <Plane className="w-6 h-6 text-orange-500" />
-                                <p className="text-lg">Quick Booking Form</p>
+                                <p className="text-lg">Quick Inquiry Form</p>
                             </div>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
@@ -276,11 +277,11 @@ const Hero = () => {
 
                                 <motion.button
                                     type="submit"
-                                    className="w-full bg-gradient-to-r from-orange-600 to-orange-500 text-white font-bold py-4 px-6 rounded-lg shadow-lg hover:from-teal-500 hover:to-teal-400 transition-all duration-300 flex items-center justify-center gap-2"
+                                    className="mx-auto bg-gradient-to-r from-orange-600 to-orange-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:from-teal-500 hover:to-teal-400 transition-all duration-300 flex items-center justify-center gap-2"
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                 >
-                                    <FontAwesomeIcon icon={faWhatsapp} className="text-xl" />
+                                    <FontAwesomeIcon icon={faWhatsapp} className="text-lg" />
                                     Send Inquiry via WhatsApp
                                 </motion.button>
                             </form>
