@@ -1,29 +1,30 @@
-
-  
-
-    import React from 'react';
+import React from 'react';
 import { Plane, MapPin, ArrowRight } from 'lucide-react';
+import dxbImage from '../assets/places/dxb.jpg'; // Importing images
+import malImage from '../assets/places/mal.avif';
+import mumImage from '../assets/places/mum.jpeg';
+import isbImage from '../assets/places/isb.webp';
 
 const Destinations = () => {
     const destinations = [
         {
             name: "Dubai",
-            image: "https://images.unsplash.com/flagged/photo-1559717865-a99cac1c95d8?q=80&w=3200&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            image: dxbImage, // Using imported images
             description: "Experience luxury in the heart of UAE"
         },
         {
             name: "Maldives",
-            image: "https://images.unsplash.com/photo-1643856555886-76dca68e5322?q=80&w=3350&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            image: malImage,
             description: "Paradise on Earth with crystal clear waters"
         },
         {
             name: "Mumbai",
-            image: "https://images.unsplash.com/photo-1580063952955-9319880b5f74?q=80&w=3432&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            image: mumImage,
             description: "The city that never sleeps"
         },
         {
             name: "Islamabad",
-            image: "https://images.unsplash.com/photo-1640774328301-cb95cdc3a8d6?q=80&w=3364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            image: isbImage,
             description: "The green capital of Pakistan"
         }
     ];
@@ -53,7 +54,7 @@ const Destinations = () => {
     };
 
     return (
-        <section className="py-24 bg-gradient-to-b from-sky-950 via-sky-950/95 to-sky-950/90">
+        <section className="py-20 bg-gradient-to-b from-sky-950 to-sky-900">
             <div 
                 className="container mx-auto px-4 md:px-6"
                 initial="hidden"

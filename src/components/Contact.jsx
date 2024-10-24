@@ -116,7 +116,7 @@ const Contact = () => {
                             </motion.div>
                             
                             <motion.div 
-                                className="mt-6 p-4 bg-sky-900/50 rounded-xl"
+                                className="mt-6 p-4 "
                                 whileHover={{ scale: 1.01 }}
                             >
                                 <p className="text-lg flex items-center gap-2 mb-2">

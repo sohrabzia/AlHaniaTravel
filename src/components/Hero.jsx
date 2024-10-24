@@ -4,7 +4,7 @@ import { Plane, Calendar, MapPin, ArrowRight, ArrowLeftRight } from 'lucide-reac
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import * as THREE from 'three';
-
+import alhaniaLogo from '../assets/alhaniaLogo.svg';
 const Hero = () => {
     const [formData, setFormData] = useState({
         fullName: '',
@@ -127,6 +127,10 @@ const Hero = () => {
             {/* Content Container */}
             <div className="relative pt-20 pb-16 px-4">
                 <div className="container mx-auto">
+            
+            <img src={alhaniaLogo} alt="Alhania Logo" className="h-28 mb-10 mx-auto" />
+      
+          
                     <motion.div 
                         className="text-center mb-12 space-y-4 relative z-10"
                         initial="hidden"
@@ -247,33 +251,33 @@ const Hero = () => {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="relative">
-                                        <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                                        <input
-                                            type="date"
-                                            name="departDate"
-                                            value={formData.departDate}
-                                            onChange={handleChange}
-                                            className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300"
-                                            required
-                                        />
-                                    </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+    <div className="relative w-full">
+        <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-teal-500 transition-colors duration-300" />
+        <input
+            type="date"
+            name="departDate"
+            value={formData.departDate}
+            onChange={handleChange}
+            className="w-full min-w-[100%] bg-white/5 border border-white/20 rounded-xl pl-10 pr-4 py-3.5 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300 [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert appearance-none"
+            required
+        />
+    </div>
 
-                                    {formData.tripType === 'roundTrip' && (
-                                        <div className="relative">
-                                            <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                                            <input
-                                                type="date"
-                                                name="returnDate"
-                                                value={formData.returnDate}
-                                                onChange={handleChange}
-                                                className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300"
-                                                required
-                                            />
-                                        </div>
-                                    )}
-                                </div>
+    {formData.tripType === 'roundTrip' && (
+        <div className="relative w-full">
+            <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-teal-500 transition-colors duration-300" />
+            <input
+                type="date"
+                name="returnDate"
+                value={formData.returnDate}
+                onChange={handleChange}
+                className="w-full min-w-[100%] bg-white/5 border border-white/20 rounded-xl pl-10 pr-4 py-3.5 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300 [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert appearance-none"
+                required
+            />
+        </div>
+    )}
+</div>
 
                                 <motion.button
                                     type="submit"

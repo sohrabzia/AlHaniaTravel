@@ -50,7 +50,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-24 bg-gradient-to-b from-sky-950 to-sky-900  overflow-hidden relative">
+    <section id="about" className="py-20 bg-gradient-to-b from-sky-950 to-sky-900  overflow-hidden relative">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,165,0,0.1),transparent_50%)]" />
       
@@ -91,28 +91,40 @@ const About = () => {
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              whileHover={{ 
-                scale: 1.03,
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)"
-              }}
-              className="backdrop-blur-lg bg-white/10 rounded-xl shadow-2xl p-8 border border-white/20"
-            >
-              <div className="w-14 h-14 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center mb-6 group-hover:from-teal-100 group-hover:to-teal-200 transition-colors duration-300">
-                <div className="text-orange-600 group-hover:text-teal-600 transition-colors duration-300">
-                  {feature.icon}
-                </div>
-              </div>
-              <h3 className="text-xl font-semibold mb-3 text-orange-500">
-                {feature.title}
-              </h3>
-              <p className="text-white leading-relaxed">{feature.description}</p>
-            </motion.div>
-          ))}
+  {features.map((feature, index) => (
+    <motion.div
+      key={index}
+      variants={itemVariants}
+      whileHover={{ 
+        scale: 1.03,
+        boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)"
+      }}
+      className="relative isolate overflow-hidden rounded-xl p-8 group"
+    >
+      {/* Background layer with blur and gradient */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-sky-950/50 to-transparent"></div>
+      </div>
+      
+      {/* Subtle border glow */}
+      <div className="absolute inset-px rounded-xl bg-gradient-to-br from-white/5 to-white/0 -z-10"></div>
+      
+      {/* Content */}
+      <div className="relative z-10">
+        <div className="w-14 h-14 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center mb-6 transform transition-all duration-300 group-hover:scale-110 group-hover:from-teal-100 group-hover:to-teal-200">
+          <div className="text-orange-600 group-hover:text-teal-600 transition-colors duration-300">
+            {feature.icon}
+          </div>
         </div>
+        <h3 className="text-xl font-semibold mb-3 bg-gradient-to-r from-orange-500 to-orange-400 bg-clip-text text-transparent">
+          {feature.title}
+        </h3>
+        <p className="text-gray-100 leading-relaxed">{feature.description}</p>
+      </div>
+    </motion.div>
+  ))}
+</div>
       
       
       </motion.div>
