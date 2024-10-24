@@ -88,7 +88,7 @@ const Hero = () => {
         // Animation loop
         function animate() {
             requestAnimationFrame(animate);
-            globe.rotation.y += 0.0005;
+            globe.rotation.y += 0.002;
             renderer.render(scene, camera);
         }
         animate();

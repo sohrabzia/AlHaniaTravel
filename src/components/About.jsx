@@ -41,12 +41,8 @@ const About = () => {
       icon: <Award className="w-6 h-6" />,
       title: "Excellence",
       description: "Fresh and dedicated service, built on passion for helping you travel hassle-free"
-    },
-    {
-      icon: <Users className="w-6 h-6" />,
-      title: "Customer Focus",
-      description: "24/7 dedicated support team committed to your travel success"
     }
+   
   ];
 
   return (
@@ -90,7 +86,7 @@ const About = () => {
         </motion.div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 mb-10">
   {features.map((feature, index) => (
     <motion.div
       key={index}
