@@ -68,10 +68,10 @@ const Header = () => {
                   whileHover={{ scale: 1.05 }}
                   className="flex items-center"
                 >
-                  <img 
+                  {(isScrolled || isOpen) && <img 
                     src={alhaniaLogo} 
                     className="h-12 w-auto"
-                  />
+                  />}
                 </motion.div>
 
                 {/* Desktop Menu */}
