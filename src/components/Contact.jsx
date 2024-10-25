@@ -96,7 +96,7 @@ const Contact = () => {
                         className="w-full md:w-1/2"
                         variants={itemVariants}
                     >
-                        <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-xl">
+                        <div className="bg-white/10 border border-white/20 backdrop-blur-lg rounded-2xl p-6 shadow-xl">
                             <h3 className="text-2xl font-bold mb-6">Location</h3>
                             <motion.div 
                                 className="overflow-hidden rounded-xl"
@@ -147,7 +147,7 @@ const Contact = () => {
                         className="w-full md:w-1/2"
                         variants={itemVariants}
                     >
-                        <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-xl">
+                        <div className="bg-white/10 border border-white/20 backdrop-blur-lg rounded-2xl p-8 shadow-xl">
                             <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 <motion.div

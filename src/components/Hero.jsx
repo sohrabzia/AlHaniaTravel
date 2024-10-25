@@ -88,7 +88,7 @@ const Hero = () => {
         // Animation loop
         function animate() {
             requestAnimationFrame(animate);
-            globe.rotation.y += 0.002;
+            globe.rotation.y += 0.0005;
             renderer.render(scene, camera);
         }
         animate();
@@ -251,7 +251,7 @@ const Hero = () => {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
     <div className="relative w-full">
         <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-teal-500 transition-colors duration-300" />
         <input
@@ -259,7 +259,7 @@ const Hero = () => {
             name="departDate"
             value={formData.departDate}
             onChange={handleChange}
-            className="w-full min-w-[100%] bg-white/5 border border-white/20 rounded-xl pl-10 pr-4 py-3.5 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300 [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert appearance-none"
+            className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300"
             required
         />
     </div>
@@ -272,7 +272,7 @@ const Hero = () => {
                 name="returnDate"
                 value={formData.returnDate}
                 onChange={handleChange}
-                className="w-full min-w-[100%] bg-white/5 border border-white/20 rounded-xl pl-10 pr-4 py-3.5 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300 [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert appearance-none"
+                className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300"
                 required
             />
         </div>

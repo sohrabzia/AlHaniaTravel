@@ -98,13 +98,10 @@ const About = () => {
       className="relative isolate overflow-hidden rounded-xl p-8 group"
     >
       {/* Background layer with blur and gradient */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-sky-950/50 to-transparent"></div>
-      </div>
+      
       
       {/* Subtle border glow */}
-      <div className="absolute inset-px rounded-xl bg-gradient-to-br from-white/5 to-white/0 -z-10"></div>
+      <div className="absolute inset-px rounded-xl  bg-white/10 to-white/10 -z-10 border border-white/20"></div>
       
       {/* Content */}
       <div className="relative z-10">
